@@ -1,0 +1,105 @@
+/* style.css 상단에 추가 */
+@import url('https://fonts.googleapis.com/css2?family=Bpmf+Huninn&display=swap');
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+    user-select: none;
+}
+
+body {
+background-color: black;
+font-family: 'Nanum Myeongjo',serif,'Dongle';
+overflow: hidden;
+}
+
+.game-wrapper {
+position: relative;
+display: flex;
+flex-direction: column;
+align-items: center;
+gap: 10px;
+}
+
+h1{
+    font-size: 1.5rem;
+    color:white;
+    margin-bottom: 4px;
+}
+
+header {
+    text-align: center;
+}
+
+.hud {
+    font-size: 1rem;
+    color: white;
+    font-family: 'dongle';
+}
+
+#game-container {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+overflow: hidden;
+}
+
+#dialogue-box {
+    display: none;              /* 평소엔 숨김, JS에서 block으로 바꿈 */
+    position: absolute;
+    left: 50%;
+    bottom: 30px;
+    transform: translateX(-50%);
+    width: 90%;
+    max-width: 900px;
+    background: rgba(0, 0, 0, 0.8);
+    border: 2px solid #fff;
+    border-radius: 8px;
+    padding: 16px 20px;
+    color: white;
+    box-sizing: border-box;
+    z-index: 10;
+}
+
+.speaker-name {
+    font-weight: bold;
+    margin-bottom: 8px;
+    color: #ffd166;
+}
+
+.dialogue-text {
+    margin-bottom: 12px;
+    line-height: 1.5;
+}
+
+.options-container {
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+}
+
+.dialogue-option {
+    padding: 8px 12px;
+    background: rgba(255, 255, 255, 0.1);
+    border-radius: 4px;
+    cursor: pointer;
+}
+
+.dialogue-option:hover {
+    background: rgba(255, 255, 255, 0.25);
+}
+
+.dongle-regular {
+  font-family: "Dongle", sans-serif;
+  font-weight: 1000;
+  font-style: normal;
+}
+
+.bpmf-huninn-regular {
+  font-family: "Bpmf Huninn", sans-serif;
+  font-weight: 400;
+  font-style: normal;
+}
+
