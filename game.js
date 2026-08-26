@@ -1,5 +1,7 @@
-const VIEW_WIDTH = window.innerWidth;
-const VIEW_HEIGHT = window.innerHeight;
+const DESIGN_WIDTH = 2560;
+const DESIGN_HEIGHT = 1440;
+const VIEW_WIDTH = DESIGN_WIDTH;
+const VIEW_HEIGHT = DESIGN_HEIGHT;
 const FLOOR_Y = 1420;
 const CHARACTER_SPEED = 7;
 const CHARACTER_HEIGHT = 550;
@@ -1310,9 +1312,22 @@ function init() {
     createDialogueUI();
     app.ticker.add(update);
 
-    window.addEventListener('resize', () => {
-        app.renderer.resize(window.innerWidth, window.innerHeight);
-    });
+   function resizeToFit() {
+    const scale = Math.min(
+        window.innerWidth / DESIGN_WIDTH,
+        window.innerHeight / DESIGN_HEIGHT
+    );
+
+    app.view.style.width = `${DESIGN_WIDTH * scale}px`;
+    app.view.style.height = `${DESIGN_HEIGHT * scale}px`;
+    app.view.style.position = 'absolute';
+    app.view.style.left = '50%';
+    app.view.style.top = '50%';
+    app.view.style.transform = 'translate(-50%, -50%)';
+}
+
+window.addEventListener('resize', resizeToFit);
+resizeToFit();
 }
 
 function update() {
