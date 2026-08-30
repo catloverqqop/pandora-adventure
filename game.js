@@ -739,13 +739,15 @@ function updateCharacter(delta) {
 
 
    
+    function updateCharacter(delta) {
+    ...
     if (keys.Left) {
-        character.x -= CHARACTER_SPEED;
+        character.x -= CHARACTER_SPEED * delta;   // delta 곱하기 추가
         facing = -1;
         isMoving = true;
     }
     if (keys.Right) {
-        character.x += CHARACTER_SPEED;
+        character.x += CHARACTER_SPEED * delta;   // delta 곱하기 추가
         facing = 1;
         isMoving = true;
     }
@@ -1731,16 +1733,20 @@ const dialogues = {
     }
 };
 
-document.fonts.load('50px Dongle')
-    .then(() => document.fonts.ready)
-    .then(() => {
+function minDelay(ms) {
+    return new Promise(resolve => setTimeout(resolve, ms));
+}
+
+Promise.all([
+    document.fonts.load('50px Dongle').then(() => document.fonts.ready),
+    minDelay(150)   // 최소 150ms는 무조건 기다림 (저전력 상황 대비 여유)
+]).then(() => {
+    requestAnimationFrame(() => {
         requestAnimationFrame(() => {
-            requestAnimationFrame(() => {
-                loadGameAssets();
-            });
+            loadGameAssets();
         });
-    })
-    .catch((err) => {
-        console.error('폰트 로드 실패:', err);
-        loadGameAssets();
     });
+}).catch((err) => {
+    console.error('폰트 로드 실패:', err);
+    loadGameAssets();
+});
