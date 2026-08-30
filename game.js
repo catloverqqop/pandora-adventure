@@ -737,10 +737,6 @@ function updateCharacter(delta) {
 
     isMoving = false;
 
-
-   
-    function updateCharacter(delta) {
-    ...
     if (keys.Left) {
         character.x -= CHARACTER_SPEED * delta;   // delta 곱하기 추가
         facing = -1;
