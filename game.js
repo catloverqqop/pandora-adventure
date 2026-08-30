@@ -35,7 +35,7 @@ const app = new PIXI.Application({
     height: VIEW_HEIGHT,
     resolution: Math.max(window.devicePixelRatio || 1, 2),
     autoDensity: true,
-    antialias: true,
+    antialias: true
 });
 
 bubbleText = new PIXI.HTMLText('', {
