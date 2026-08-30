@@ -1,6 +1,11 @@
 /* style.css 상단에 추가 */
-@import url('https://fonts.googleapis.com/css2?family=Bpmf+Huninn&display=swap');
-* {
+@font-face {
+    font-family: 'Dongle';
+    src: url('./fonts/Dongle-Regular.ttf') format('truetype');
+    font-weight: 400;
+    font-style: normal;
+    font-display: swap;
+}* {
     box-sizing: border-box;
     margin: 0;
     padding: 0;
@@ -96,10 +101,3 @@ overflow: hidden;
   font-weight: 1000;
   font-style: normal;
 }
-
-.bpmf-huninn-regular {
-  font-family: "Bpmf Huninn", sans-serif;
-  font-weight: 400;
-  font-style: normal;
-}
-

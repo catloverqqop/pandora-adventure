@@ -38,19 +38,6 @@ const app = new PIXI.Application({
     antialias: true,
 });
 
-bubbleText = new PIXI.HTMLText('', {
-    style: {
-        fontFamily: 'Dongle',
-        fontSize: '40px',          // px 단위 명시
-        fill: '#222222',           // 16진수 문자열 사용
-        align: 'center',
-        lineHeight: 42,            // 텍스트 자간/행간 깨짐 방지
-    },
-    wordWrap: true,
-    wordWrapWidth: BUBBLE_MAX_WIDTH - BUBBLE_PADDING * 3, // ⭕ BUBBLE_PADDING 오타 수정
-    resolution: window.devicePixelRatio || 2 // Retina 디스플레이 해상도 맞춤
-});
-
 document.getElementById('game-container').appendChild(app.view);
 
 const bgLayer = new PIXI.Container();
@@ -288,17 +275,15 @@ function createDialogueUI() {
     dialogueBubble = new PIXI.Container();
     bubbleBg = new PIXI.Graphics();
 
-  bubbleText = new PIXI.HTMLText('', {
-    style: {
-        fontFamily: 'Dongle',
-        fontSize: '40px',          // px 단위 명시
-        fill: '#222222',           // 16진수 문자열 사용
-        align: 'center',
-        lineHeight: 42,            // 텍스트 자간/행간 깨짐 방지
-    },
+ bubbleText = new PIXI.HTMLText('', {
+    fontFamily: 'Dongle',
+    fontSize: 30,
+    fill: '#222222',
+    align: 'center',
+    lineHeight: 42,
     wordWrap: true,
-    wordWrapWidth: BUBBLE_MAX_WIDTH - BUBBLE_PADDING * 3, // ⭕ BUBBLE_PADDING 오타 수정
-    resolution: window.devicePixelRatio || 2 // Retina 디스플레이 해상도 맞춤
+    wordWrapWidth: BUBBLE_MAX_WIDTH - BUBBLE_PADDING * 3,
+    resolution: window.devicePixelRatio || 2
 });
     
     dialogueBubble.addChild(bubbleBg);
@@ -753,8 +738,7 @@ function updateCharacter(delta) {
     isMoving = false;
 
 
-    const speed = CHARCTER_SPEED * app.ticker.deltaTime;
-
+   
     if (keys.Left) {
         character.x -= CHARACTER_SPEED;
         facing = -1;
@@ -1747,6 +1731,16 @@ const dialogues = {
     }
 };
 
-document.fonts.ready.then(() => {
-    loadGameAssets();
-});
+document.fonts.load('50px Dongle')
+    .then(() => document.fonts.ready)
+    .then(() => {
+        requestAnimationFrame(() => {
+            requestAnimationFrame(() => {
+                loadGameAssets();
+            });
+        });
+    })
+    .catch((err) => {
+        console.error('폰트 로드 실패:', err);
+        loadGameAssets();
+    });
