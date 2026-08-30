@@ -33,8 +33,19 @@ const BOOK_PAGE_HEIGHT = 1300;
 const app = new PIXI.Application({
     width: VIEW_WIDTH,
     height: VIEW_HEIGHT,
-    resolution: window.devicePixelRatio || 1,
+    resolution: Math.max(window.devicePixelRatio || 1, 2), 
     autoDensity: true
+    antialias: true
+});
+
+bubbleText = new PIXI.HTMLText('', {
+    fontFamily: 'Dongle',
+    fontSize: 35,
+    fill: 0x222222,
+    wordWrap: true,
+    wordWrapWidth: BUBBLE_MAX_WIDTH - BUBBLE_PDDINF * 3,
+    align: 'center',
+    resolution: 2
 });
 
 document.getElementById('game-container').appendChild(app.view);
@@ -725,7 +736,7 @@ function updateIdleHint() {
     idleHintText.visible = !isMoving && !inDialogue && !minigameActive && !bondEffectActive && !bookActive;
 }
 
-function updateCharacter() {
+function updateCharacter(delta) {
     if (!character) return;
     if (inDialogue) {
         isMoving = false;
@@ -733,6 +744,9 @@ function updateCharacter() {
     }
 
     isMoving = false;
+
+    app.ticker.deltTime
+    const speed = CHARCTER_SPEED * app.ticker.deltaTime;
 
     if (keys.Left) {
         character.x -= CHARACTER_SPEED;
@@ -1330,8 +1344,8 @@ window.addEventListener('resize', resizeToFit);
 resizeToFit();
 }
 
-function update() {
-    updateCharacter();
+function update(delta) {
+    updateCharacter(delta);
     updateCamera();
     updateInteractionPrompts();
     updateThornFade();
@@ -1727,8 +1741,6 @@ const dialogues = {
 };
 
 Promise.all([
-    document.fonts.load('28px "Bpmf Huninn"'),
-    document.fonts.load('28px "Dongle"')
-]).then(() => {
+   document.fonts.ready.then(() => {
     loadGameAssets();
 });
