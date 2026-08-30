@@ -39,12 +39,14 @@ const app = new PIXI.Application({
 });
 
 bubbleText = new PIXI.HTMLText('', {
-    fontFamily: 'Dongle',
-    fontSize: 35,
-    fill: 0x222222,
+    style: {
+        fontFamily: 'Dongle',
+        fontSize: '35px',        // px 단위 명시
+        fill: '#222222',         // HTML/CSS 헥사 코드 형태 사용
+        align: 'center',
+    },
     wordWrap: true,
-    wordWrapWidth: BUBBLE_MAX_WIDTH - BUBBLE_PDDINF * 3,
-    align: 'center',
+    wordWrapWidth: BUBBLE_MAX_WIDTH - BUBBLE_PADDING * 3, // ⭕ 올바른 변수명으로 수정
     resolution: 2
 });
 
@@ -285,15 +287,18 @@ function createDialogueUI() {
     dialogueBubble = new PIXI.Container();
     bubbleBg = new PIXI.Graphics();
 
-    bubbleText = new PIXI.HTMLText('', {
+  // createDialogueUI() 함수 내부
+bubbleText = new PIXI.HTMLText('', {
+    style: {
         fontFamily: 'Dongle',
-        fontSize: 28,
-        fill: 0x222222,
-        wordWrap: true,
-        wordWrapWidth: BUBBLE_MAX_WIDTH - BUBBLE_PADDING * 3,
+        fontSize: '35px',
+        fill: '#222222',
         align: 'center',
-    });
-
+    },
+    wordWrap: true,
+    wordWrapWidth: BUBBLE_MAX_WIDTH - BUBBLE_PADDING * 3,
+    resolution: 2
+});
     dialogueBubble.addChild(bubbleBg);
     dialogueBubble.addChild(bubbleText);
 
