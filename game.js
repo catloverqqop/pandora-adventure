@@ -33,21 +33,22 @@ const BOOK_PAGE_HEIGHT = 1300;
 const app = new PIXI.Application({
     width: VIEW_WIDTH,
     height: VIEW_HEIGHT,
-    resolution: Math.max(window.devicePixelRatio || 1, 2), 
-    autoDensity: true
+    resolution: Math.max(window.devicePixelRatio || 1, 2),
+    autoDensity: true,
     antialias: true
 });
 
 bubbleText = new PIXI.HTMLText('', {
     style: {
         fontFamily: 'Dongle',
-        fontSize: '35px',        // px 단위 명시
-        fill: '#222222',         // HTML/CSS 헥사 코드 형태 사용
+        fontSize: '40px',          // px 단위 명시
+        fill: '#222222',           // 16진수 문자열 사용
         align: 'center',
+        lineHeight: 42,            // 텍스트 자간/행간 깨짐 방지
     },
     wordWrap: true,
-    wordWrapWidth: BUBBLE_MAX_WIDTH - BUBBLE_PADDING * 3, // ⭕ 올바른 변수명으로 수정
-    resolution: 2
+    wordWrapWidth: BUBBLE_MAX_WIDTH - BUBBLE_PADDING * 3, // ⭕ BUBBLE_PADDING 오타 수정
+    resolution: window.devicePixelRatio || 2 // Retina 디스플레이 해상도 맞춤
 });
 
 document.getElementById('game-container').appendChild(app.view);
@@ -287,18 +288,19 @@ function createDialogueUI() {
     dialogueBubble = new PIXI.Container();
     bubbleBg = new PIXI.Graphics();
 
-  // createDialogueUI() 함수 내부
-bubbleText = new PIXI.HTMLText('', {
+  bubbleText = new PIXI.HTMLText('', {
     style: {
         fontFamily: 'Dongle',
-        fontSize: '35px',
-        fill: '#222222',
+        fontSize: '40px',          // px 단위 명시
+        fill: '#222222',           // 16진수 문자열 사용
         align: 'center',
+        lineHeight: 42,            // 텍스트 자간/행간 깨짐 방지
     },
     wordWrap: true,
-    wordWrapWidth: BUBBLE_MAX_WIDTH - BUBBLE_PADDING * 3,
-    resolution: 2
+    wordWrapWidth: BUBBLE_MAX_WIDTH - BUBBLE_PADDING * 3, // ⭕ BUBBLE_PADDING 오타 수정
+    resolution: window.devicePixelRatio || 2 // Retina 디스플레이 해상도 맞춤
 });
+    
     dialogueBubble.addChild(bubbleBg);
     dialogueBubble.addChild(bubbleText);
 
@@ -750,7 +752,7 @@ function updateCharacter(delta) {
 
     isMoving = false;
 
-    app.ticker.deltTime
+
     const speed = CHARCTER_SPEED * app.ticker.deltaTime;
 
     if (keys.Left) {
@@ -1745,7 +1747,6 @@ const dialogues = {
     }
 };
 
-Promise.all([
-   document.fonts.ready.then(() => {
+document.fonts.ready.then(() => {
     loadGameAssets();
 });
